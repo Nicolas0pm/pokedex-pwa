@@ -1,41 +1,31 @@
-import { useEffect, useState } from 'react'
-import { getPokemon } from './api.js'
+import { useEffect } from 'react'
+import { getPokemon, useFetch } from './api.js'
 import TypeBadge from './TypeBadge.jsx'
 
-const STATS = {
-  hp: 'HP', attack: 'Ataque', defense: 'Defensa',
+const TOTAL = 151 // Pokémon de la primera generación
+
+const ESTADISTICAS = {
+  hp: 'PS', attack: 'Ataque', defense: 'Defensa',
   specialAttack: 'At. Esp.', specialDefense: 'Def. Esp.', speed: 'Velocidad',
 }
 
 export default function PokemonDetail({ id }) {
-  const [pokemon, setPokemon] = useState(undefined)
-  const [error, setError] = useState('')
-  const [retry, setRetry] = useState(0)
+  const { data: pokemon, loading, error, retry } = useFetch(() => getPokemon(id), [id])
 
-  useEffect(() => {
-    let active = true
-    setPokemon(undefined)
-    setError('')
-    getPokemon(id)
-      .then((p) => active && setPokemon(p))
-      .catch((e) => active && setError(e.message))
-    window.scrollTo(0, 0)
-    return () => {
-      active = false
-    }
-  }, [id, retry])
+  // Al cambiar de Pokémon, subir al inicio de la página
+  useEffect(() => window.scrollTo(0, 0), [id])
+
+  if (loading) return <p className="message">Cargando...</p>
 
   if (error)
     return (
       <div className="message">
         <p>{error}</p>
-        <button onClick={() => setRetry((r) => r + 1)}>Reintentar</button>
+        <button onClick={retry}>Reintentar</button>
       </div>
     )
 
-  if (pokemon === undefined) return <p className="message">Cargando...</p>
-
-  if (pokemon === null)
+  if (!pokemon)
     return (
       <div className="message">
         <h2>Pokémon no encontrado</h2>
@@ -43,10 +33,29 @@ export default function PokemonDetail({ id }) {
       </div>
     )
 
+  const anterior = pokemon.id - 1
+  const siguiente = pokemon.id + 1
+
   return (
     <article className="detail">
       <a href="#/">← Volver</a>
-      <img src={pokemon.sprites.artworkOfficial} alt={pokemon.name} className="artwork" />
+
+      <div className="navegacion">
+        {anterior >= 1 ? (
+          <a href={`#/pokemon/${anterior}`} className="flecha" aria-label="Pokémon anterior">‹</a>
+        ) : (
+          <span className="flecha desactivada">‹</span>
+        )}
+
+        <img src={pokemon.sprites.artworkOfficial} alt={pokemon.name} className="artwork" />
+
+        {siguiente <= TOTAL ? (
+          <a href={`#/pokemon/${siguiente}`} className="flecha" aria-label="Pokémon siguiente">›</a>
+        ) : (
+          <span className="flecha desactivada">›</span>
+        )}
+      </div>
+
       <h1>
         #{String(pokemon.id).padStart(3, '0')} {pokemon.name}
       </h1>
@@ -70,13 +79,13 @@ export default function PokemonDetail({ id }) {
         ))}
       </ul>
 
-      <h2>Stats base</h2>
-      {Object.entries(STATS).map(([key, label]) => (
-        <div key={key} className="stat">
-          <span>{label}</span>
-          <span>{pokemon.stats[key]}</span>
+      <h2>Estadísticas base</h2>
+      {Object.entries(ESTADISTICAS).map(([clave, nombre]) => (
+        <div key={clave} className="stat">
+          <span>{nombre}</span>
+          <span>{pokemon.stats[clave]}</span>
           <div className="bar">
-            <div style={{ width: `${Math.min(100, (pokemon.stats[key] / 160) * 100)}%` }} />
+            <div style={{ width: `${Math.min(100, (pokemon.stats[clave] / 160) * 100)}%` }} />
           </div>
         </div>
       ))}

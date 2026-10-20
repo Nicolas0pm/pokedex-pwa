@@ -9,7 +9,7 @@ PWA tipo Pokedex (151 Pokémon de la primera generación) que consume el backend
 
 - Listado con paginación, sprite, número, nombre y tipos con color
 - Búsqueda por nombre (con debounce) y filtro por tipo
-- Detalle: artwork, descripción, altura/peso, habilidades (ocultas marcadas), stats y evoluciones
+- Detalle con flechas para pasar al Pokémon anterior o siguiente: artwork, descripción, altura/peso, habilidades (ocultas marcadas), stats y evoluciones
 - Pantalla "Pokémon no encontrado" (404), estados de carga, vacío y error con reintento
 - Instalable como PWA y funciona offline con lo ya visitado (service worker)
 - Aviso cuando no hay conexión
