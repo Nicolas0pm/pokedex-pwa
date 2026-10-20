@@ -20,8 +20,9 @@ button:disabled { background: #aaa; cursor: default; }
 .detail li { text-transform: capitalize; }
 .artwork { display: block; width: 100%; max-width: 280px; min-width: 0; }
 .navegacion { display: flex; align-items: center; justify-content: center; gap: 8px; }
-.flecha { flex-shrink: 0; width: 48px; height: 48px; border-radius: 50%; background: #e3350d; color: white; font-size: 2rem; line-height: 44px; text-align: center; text-decoration: none; }
-.flecha.desactivada { background: #ccc; }
+.flecha { flex-shrink: 0; width: 56px; height: 56px; border-radius: 50%; background: #e3350d; color: white; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; text-decoration: none; border: 3px solid #222; box-shadow: 0 3px 6px rgba(0,0,0,.35); transition: transform .15s; }
+.flecha:hover { transform: scale(1.12); background: #c22a08; }
+.flecha.desactivada { background: #ddd; color: #999; border-color: #bbb; box-shadow: none; }
 .genus { color: #666; margin-top: 4px; }
 .stat { display: grid; grid-template-columns: 90px 40px 1fr; align-items: center; margin: 6px 0; }
 .bar { background: #eee; border-radius: 6px; height: 10px; overflow: hidden; }

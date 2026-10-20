@@ -42,17 +42,17 @@ export default function PokemonDetail({ id }) {
 
       <div className="navegacion">
         {anterior >= 1 ? (
-          <a href={`#/pokemon/${anterior}`} className="flecha" aria-label="Pokémon anterior">‹</a>
+          <a href={`#/pokemon/${anterior}`} className="flecha" aria-label="Pokémon anterior">◀</a>
         ) : (
-          <span className="flecha desactivada">‹</span>
+          <span className="flecha desactivada">◀</span>
         )}
 
         <img src={pokemon.sprites.artworkOfficial} alt={pokemon.name} className="artwork" />
 
         {siguiente <= TOTAL ? (
-          <a href={`#/pokemon/${siguiente}`} className="flecha" aria-label="Pokémon siguiente">›</a>
+          <a href={`#/pokemon/${siguiente}`} className="flecha" aria-label="Pokémon siguiente">▶</a>
         ) : (
-          <span className="flecha desactivada">›</span>
+          <span className="flecha desactivada">▶</span>
         )}
       </div>
 
