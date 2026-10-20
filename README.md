@@ -3,6 +3,8 @@
 PWA tipo Pokedex (151 Pokémon de la primera generación) que consume el backend
 [pokedex-backend](https://github.com/RickyFreefly/pokedex-backend).
 
+**App desplegada:** https://nicolas0pm.github.io/pokedex-pwa/
+
 ## Funcionalidades
 
 - Listado con paginación, sprite, número, nombre y tipos con color
