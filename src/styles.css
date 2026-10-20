@@ -10,8 +10,6 @@ a { color: inherit; }
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
 .card { background: white; border-radius: 12px; padding: 12px; text-align: center; text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 4px; box-shadow: 0 1px 3px rgba(0,0,0,.1); text-transform: capitalize; }
 .card:hover { transform: translateY(-2px); }
-.skeleton { height: 180px; background: linear-gradient(90deg, #eee, #ddd, #eee); background-size: 200% 100%; animation: shine 1.2s infinite; }
-@keyframes shine { to { background-position: -200% 0; } }
 .badge { display: inline-block; color: white; padding: 2px 8px; margin: 2px; border-radius: 10px; font-size: .75rem; text-transform: capitalize; }
 .message { text-align: center; padding: 24px; grid-column: 1 / -1; }
 button, .button { background: #e3350d; color: white; border: 0; padding: 10px 16px; border-radius: 8px; font-size: 1rem; cursor: pointer; text-decoration: none; display: inline-block; }
@@ -20,7 +18,10 @@ button:disabled { background: #aaa; cursor: default; }
 .detail { background: white; border-radius: 12px; padding: 16px; }
 .detail h1 { text-transform: capitalize; margin-bottom: 0; }
 .detail li { text-transform: capitalize; }
-.artwork { display: block; width: 100%; max-width: 280px; margin: 0 auto; }
+.artwork { display: block; width: 100%; max-width: 280px; min-width: 0; }
+.navegacion { display: flex; align-items: center; justify-content: center; gap: 8px; }
+.flecha { flex-shrink: 0; width: 48px; height: 48px; border-radius: 50%; background: #e3350d; color: white; font-size: 2rem; line-height: 44px; text-align: center; text-decoration: none; }
+.flecha.desactivada { background: #ccc; }
 .genus { color: #666; margin-top: 4px; }
 .stat { display: grid; grid-template-columns: 90px 40px 1fr; align-items: center; margin: 6px 0; }
 .bar { background: #eee; border-radius: 6px; height: 10px; overflow: hidden; }

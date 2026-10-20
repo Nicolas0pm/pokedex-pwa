@@ -1,8 +1,9 @@
 {
-  "name": "Pokedex Gen I",
-  "short_name": "Pokedex",
+  "name": "Pokédex Primera Generación",
+  "short_name": "Pokédex",
   "start_url": "./",
   "scope": "./",
+  "lang": "es",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#e3350d",

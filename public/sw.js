@@ -1,5 +1,5 @@
 // Service worker: guarda la app y las respuestas de la API para usarlas sin internet
-const CACHE = 'pokedex-v1'
+const CACHE = 'pokedex-v2'
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(['./', './index.html', './manifest.webmanifest'])))

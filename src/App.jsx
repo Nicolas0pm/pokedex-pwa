@@ -2,44 +2,35 @@ import { useEffect, useState } from 'react'
 import PokemonList from './PokemonList.jsx'
 import PokemonDetail from './PokemonDetail.jsx'
 
-// Rutas con # (#/pokemon/25) para que funcionen en GitHub Pages
-function useHash() {
-  const [hash, setHash] = useState(window.location.hash)
-  useEffect(() => {
-    const onChange = () => setHash(window.location.hash)
-    window.addEventListener('hashchange', onChange)
-    return () => window.removeEventListener('hashchange', onChange)
-  }, [])
-  return hash
-}
+export default function App() {
+  // Las rutas usan # (por ejemplo #/pokemon/25) para que funcionen en GitHub Pages
+  const [ruta, setRuta] = useState(window.location.hash)
+  const [conectado, setConectado] = useState(navigator.onLine)
 
-function useOnline() {
-  const [online, setOnline] = useState(navigator.onLine)
   useEffect(() => {
-    const on = () => setOnline(true)
-    const off = () => setOnline(false)
-    window.addEventListener('online', on)
-    window.addEventListener('offline', off)
+    const actualizar = () => {
+      setRuta(window.location.hash)
+      setConectado(navigator.onLine)
+    }
+    window.addEventListener('hashchange', actualizar)
+    window.addEventListener('online', actualizar)
+    window.addEventListener('offline', actualizar)
     return () => {
-      window.removeEventListener('online', on)
-      window.removeEventListener('offline', off)
+      window.removeEventListener('hashchange', actualizar)
+      window.removeEventListener('online', actualizar)
+      window.removeEventListener('offline', actualizar)
     }
   }, [])
-  return online
-}
 
-export default function App() {
-  const hash = useHash()
-  const online = useOnline()
-  const match = hash.match(/^#\/pokemon\/(.+)$/)
+  const id = ruta.match(/^#\/pokemon\/(.+)$/)?.[1]
 
   return (
     <>
       <header className="header">
-        <a href="#/">Pokedex</a>
+        <a href="#/">Pokédex</a>
       </header>
-      {!online && <div className="offline">Estás offline — mostrando datos guardados</div>}
-      <main>{match ? <PokemonDetail id={match[1]} /> : <PokemonList />}</main>
+      {!conectado && <div className="offline">Sin conexión: mostrando datos guardados</div>}
+      <main>{id ? <PokemonDetail id={id} /> : <PokemonList />}</main>
     </>
   )
 }
